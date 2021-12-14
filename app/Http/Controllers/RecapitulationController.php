@@ -155,4 +155,30 @@ class RecapitulationController extends Controller
             ]);
         }
     }
+
+    public function table()
+    {
+        $list = Recapitulation::orderBy('created_at', 'desc')->get();
+        $table = "";
+        $no = 1;
+
+        foreach ($list as $key => $v) {
+            $table .= '<tr id="list_'.$v->id.'">';
+            $table .= '<th>'.$no++.'</th>';
+            $table .= '<td>'.$v->pengguna->name.'</td>';
+            $table .= '<td>'.$v->date_in.'</td>';
+            $table .= '<td>'.$v->date_out.'</td>';
+            $table .= '<td>';
+            $table .= '<a href="javascript:void(0)" data-id="'.$v->id.'"
+                        onclick="listUpdate(this)" class="btn btn-outline-info btn-sm"><span
+                            class="fa fa-edit"></span></a>
+                    <a href="javascript:void(0)" onclick="listDelete('.$v->id.')"
+                        class="btn btn-outline-danger btn-sm"><span class="fa fa-trash"></span></a>
+                </td>
+            </tr>';
+        }
+
+        return $table;
+        
+    }
 }

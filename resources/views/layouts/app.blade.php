@@ -87,8 +87,8 @@
     <!--Main Index-->
     <header class="header-2">
         <div class="page-header min-vh-75 relative"
-            style="background-image: url('{{ asset('assets') }}/img/bg2.jpg')">
-            <span class="mask bg-gradient-primary opacity-4"></span>
+            style="background-image: url('https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80')">
+            <span class="mask bg-gradient-secondary opacity-4"></span>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 text-center mx-auto">

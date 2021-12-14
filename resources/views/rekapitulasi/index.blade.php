@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody id="list">
-                            @foreach ($list as $item)
+                            {{-- @foreach ($list as $item)
                                 <tr id="list_{{ $item->id }}">
                                     <th>{{ $loop->iteration }}</th>
                                     <td>{{ $item->pengguna->name }}</td>
@@ -47,7 +47,7 @@
                                             class="btn btn-outline-danger btn-sm"><span class="fa fa-trash"></span></a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
@@ -309,5 +309,16 @@
         $('.datetimepicker').datetimepicker({
             format: 'Y-m-d H:i'
         });
+
+        var rfid_temp = setInterval(() => {
+            $.ajax({
+                url: "{{ route('rekapitulasi.table') }}",
+                method: "GET",
+
+                success: function(result) {
+                    $('#list').html(result);
+                }
+            });
+        }, 2000);
     </script>
 @endsection

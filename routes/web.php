@@ -23,6 +23,8 @@ Route::post('pengguna-update-list', [UserController::class, 'updateList'])->name
 Route::post('pengguna-delete-list', [UserController::class, 'deleteList'])->name('pengguna.delete-list');
 Route::get('pengguna-rfid-temp', [UserController::class, 'rfidTemp'])->name('pengguna.rfid-temp');
 
+
 Route::resource('rekapitulasi', RecapitulationController::class);
+Route::get('rekapitulasi-table', [RecapitulationController::class, 'table'])->name('rekapitulasi.table');
 Route::post('rekapitulasi-update-list', [RecapitulationController::class, 'updateList'])->name('rekapitulasi.update-list');
 Route::post('rekapitulasi-delete-list', [RecapitulationController::class, 'deleteList'])->name('rekapitulasi.delete-list');
