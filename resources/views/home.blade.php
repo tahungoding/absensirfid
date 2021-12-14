@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <section class="my-5 py-5">
+    {{-- <section class="my-5 py-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4 ms-auto me-auto p-lg-4 mt-lg-0 mt-4">
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection
 
 @section('js')
