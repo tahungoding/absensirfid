@@ -15,19 +15,37 @@ class RecapitulationController extends Controller
         $date = date('Y-m-d H:i:s');
 
         if ($rfid != null && $date != null) {
-            $user = User::where('rfid', $rfid)->orderBy('created_at')->first();
-            if ($user) {
-                if ($user->date_out == null) {
-                    $user->date_out = $date;
-                    if ($user->save()) {
-                        return response()->json([
-                            'status' => 'Pulang',
-                            'data' => $user
-                        ]);
+            $user = User::where('rfid', $rfid)->first();
+            
+            if ($user) {    
+                $cekRecap = Recapitulation::where('user_id',$user->id)->latest()->first();
+                if ($cekRecap) {
+                    if ($cekRecap->date_out == null) {
+                        $cekRecap->date_out = $date;
+                        if ($cekRecap->save()) {
+                            return response()->json([
+                                'status' => 'Pulang',
+                                'data' => $cekRecap
+                            ]);
+                        }else{
+                            return response()->json([
+                                'status' => 'Error Pulang'
+                            ]); 
+                        }
                     }else{
-                        return response()->json([
-                            'status' => 'Error Pulang'
-                        ]); 
+                        $new = new Recapitulation();
+                        $new->user_id = $user->id;
+                        $new->date_in = $date;
+                        if ($new->save()) {
+                            return response()->json([
+                                'status' => 'Datang',
+                                'data' => $new
+                            ]);
+                        }else{
+                            return response()->json([
+                                'status' => 'Error Datang'
+                            ]); 
+                        }
                     }
                 }else{
                     $new = new Recapitulation();
