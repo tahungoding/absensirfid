@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DeviceController;
 use App\Http\Controllers\Api\RecapitulationController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -20,5 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('get-device-detail/{slug}', [DeviceController::class, 'mode']);
 Route::post('store-rfid-temporary', [UserController::class, 'rfid']);
 Route::post('store-rfid-presence', [RecapitulationController::class, 'rfid']);
