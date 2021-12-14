@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redis;
+use App\Models\Device;
 
 class UserController extends Controller
 {
@@ -18,6 +19,11 @@ class UserController extends Controller
     public function index()
     {
         $data['list'] = User::all();
+
+        $mode = Device::where('slug', 'absensi-rfid')->first();
+        $mode->mode = 'pengguna';
+        $mode->save();
+        
         return view('pengguna.index', $data);
     }
 

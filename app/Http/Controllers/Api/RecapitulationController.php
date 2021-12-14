@@ -12,30 +12,48 @@ class RecapitulationController extends Controller
     public function rfid(Request $request)
     {
         $rfid = $request->rfid;
-        $date = $request->date;
+        $date = date('Y-m-d H:i:s');
 
         if ($rfid != null && $date != null) {
-            $cek = Recapitulation::where('rfid', $rfid)->orderBy('created_at')->first();
-    
-            if ($cek) {
-                if ($cek->date_out == null) {
-                    $cek->date_out = $date;
+            $user = User::where('rfid', $rfid)->orderBy('created_at')->first();
+            if ($user) {
+                if ($user->date_out == null) {
+                    $user->date_out = $date;
+                    if ($user->save()) {
+                        return response()->json([
+                            'status' => 'Pulang',
+                            'data' => $user
+                        ]);
+                    }else{
+                        return response()->json([
+                            'status' => 'Error Pulang'
+                        ]); 
+                    }
                 }else{
-                    $cek = new Recapitulation();
-                    $cek->rfid = $rfid;
-                    $cek->date_in = $date;
+                    $new = new Recapitulation();
+                    $new->user_id = $user->id;
+                    $new->date_in = $date;
+                    if ($new->save()) {
+                        return response()->json([
+                            'status' => 'Datang',
+                            'data' => $new
+                        ]);
+                    }else{
+                        return response()->json([
+                            'status' => 'Error Datang'
+                        ]); 
+                    }
                 }
-                return $cek->save();
             }else{
-                $cek = new Recapitulation();
-                $cek->rfid = $rfid;
-                $cek->date_in = $date;
-
-                return $cek->save();
+                return response()->json([
+                    'status' => 'Error Kartu'
+                ]); 
             }
             
         }else{
-            return 'Error';
+            return response()->json([
+                'status' => 'Error'
+            ]); 
         }
 
     }

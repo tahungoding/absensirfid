@@ -7,6 +7,7 @@ use App\Models\Recapitulation;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redis;
+use App\Models\Device;
 
 class RecapitulationController extends Controller
 {
@@ -19,6 +20,10 @@ class RecapitulationController extends Controller
     {
         $data['list'] = Recapitulation::all();
         $data['pengguna'] = User::all();
+
+        $mode = Device::where('slug', 'absensi-rfid')->first();
+        $mode->mode = 'absensi';
+        $mode->save();
 
         return view('rekapitulasi.index', $data);
     }
