@@ -23,6 +23,7 @@ class RecapitulationController extends Controller
                     if ($cekRecap->date_out == null) {
                         $cekRecap->date_out = $date;
                         if ($cekRecap->save()) {
+                            $cekRecap->name = $cekRecap->pengguna->name;
                             return response()->json([
                                 'status' => 'Pulang',
                                 'data' => $cekRecap
@@ -37,6 +38,7 @@ class RecapitulationController extends Controller
                         $new->user_id = $user->id;
                         $new->date_in = $date;
                         if ($new->save()) {
+                            $new->name = $new->pengguna->name;
                             return response()->json([
                                 'status' => 'Datang',
                                 'data' => $new
